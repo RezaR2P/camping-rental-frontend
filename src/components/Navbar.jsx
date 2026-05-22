@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token');
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -15,21 +17,28 @@ const Navbar = () => {
         Camping Rental
       </Link>
       <div className="flex gap-4">
-        <Link to="/" className="text-white hover:text-blue-200">
-          Home
-        </Link>
-        <Link to="/login" className="text-white hover:text-blue-200">
-          Login
-        </Link>
-        <Link to="/register" className="text-white hover:text-blue-200">
-          Register
-        </Link>
-        <button
-          onClick={handleLogout}
-          className="text-white hover:text-blue-200"
-        >
-          Logout
-        </button>
+        {token ? (
+          <>
+            <Link to="/" className="text-white hover:text-blue-200">
+              Home
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="text-white hover:text-blue-200"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="text-white hover:text-blue-200">
+              Login
+            </Link>
+            <Link to="/register" className="text-white hover:text-blue-200">
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
