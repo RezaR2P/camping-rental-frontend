@@ -62,11 +62,12 @@ const CreateOrderPage = () => {
           },
         }
       );
-      navigate('/order');
+      navigate('/orders');
     } catch (error) {
       console.log(error);
     }
   };
+  console.log(availableItems);
   return (
     <div className="flex items-center h-screen bg-gray-100">
       <div>
@@ -110,6 +111,18 @@ const CreateOrderPage = () => {
               setRentEnd(e.target.value);
             }}
           />
+        </div>
+        <div>
+          <h2>Keranjang</h2>
+          {items.map((item) => {
+            const barang = availableItems.find((i) => i.id === item.item_id);
+            return (
+              <div key={item.item_id}>
+                <p>{barang?.name}</p>
+                <p>quantity: {item.quantity}</p>
+              </div>
+            );
+          })}
         </div>
         <button onClick={handleSubmit}>Sewa</button>
       </div>

@@ -29,11 +29,19 @@ const OrdersPage = () => {
         {orders.map((order) => {
           return (
             <div key={order.id} className="bg-white p-4 rounded-lg shadow">
-              <h2 className="font-bold">Mulai Sewa: {order.rent_start}</h2>
-              <p className="text-gray-500">Selesai: {order.rent_end}</p>
+              <h2 className="font-bold">
+                Mulai Sewa:{' '}
+                {new Date(order.rent_start).toLocaleDateString('id-ID')}
+              </h2>
+              <p className="text-gray-500">
+                Selesai: {new Date(order.rent_end).toLocaleDateString('id-ID')}
+              </p>
               <p className="text-blue-500">Total Harga: {order.total_price}</p>
               <p className="text-blue-500">Status: {order.status}</p>
-              <p className="text-blue-500">Order Dibuat: {order.created_at}</p>
+              <p className="text-blue-500">
+                Order Dibuat:{' '}
+                {new Date(order.created_at).toLocaleString('id-ID')}
+              </p>
             </div>
           );
         })}
