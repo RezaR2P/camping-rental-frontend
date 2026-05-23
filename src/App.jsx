@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import OrdersPage from './pages/OrdersPage';
+import CreateOrderPage from './pages/CreateOrderPage';
 
 const App = () => {
   const location = useLocation();
@@ -28,6 +29,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders/create"
+          element={
+            <ProtectedRoute>
+              <CreateOrderPage />
             </ProtectedRoute>
           }
         />
