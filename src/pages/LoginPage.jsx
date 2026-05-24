@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,9 +19,9 @@ const LoginPage = () => {
       const data = error.response.data;
       if (data.errors) {
         // Error Validasi
-        setError(data.errors[0].msg);
+        setErrors(data.errors[0].msg);
       } else {
-        setError(data.message);
+        setErrors(data.message);
       }
       console.log(error.response.data);
       // console.log(error);
@@ -40,6 +40,7 @@ const LoginPage = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
+              setErrors('');
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Email"
@@ -52,6 +53,7 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
+              setErrors('');
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Password"
@@ -63,7 +65,7 @@ const LoginPage = () => {
         >
           Login
         </button>
-        {error && <p className="text-red-500">{error}</p>}
+        {errors && <p className="text-red-500">{errors}</p>}
       </div>
     </div>
   );

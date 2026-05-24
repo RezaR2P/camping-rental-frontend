@@ -7,6 +7,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,7 +23,13 @@ const RegisterPage = () => {
       console.log(response.data);
       navigate('/login');
     } catch (error) {
-      console.log(error.response.data);
+      const data = error.response.data;
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setErrors(data.message);
+      }
+      console.log(data);
     }
   };
 
@@ -37,6 +44,7 @@ const RegisterPage = () => {
             value={name}
             onChange={(e) => {
               setName(e.target.value);
+              setErrors([]);
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Nama"
@@ -49,6 +57,7 @@ const RegisterPage = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
+              setErrors([]);
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Email"
@@ -61,6 +70,7 @@ const RegisterPage = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
+              setErrors([]);
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Password"
@@ -73,6 +83,7 @@ const RegisterPage = () => {
             value={phone}
             onChange={(e) => {
               setPhone(e.target.value);
+              setErrors([]);
             }}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Masukkan Nomor HP"
@@ -82,8 +93,16 @@ const RegisterPage = () => {
           onClick={handleSubmit}
           className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
         >
-          Login
+          Register
         </button>
+        {errors &&
+          errors.map((error) => {
+            return (
+              <p key={error.path} className="text-red-500">
+                {error.msg}
+              </p>
+            );
+          })}
       </div>
     </div>
   );
