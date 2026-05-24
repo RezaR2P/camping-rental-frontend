@@ -23,7 +23,9 @@ const CreateOrderPage = () => {
   }, []);
 
   const handleAddItem = (item) => {
-    const sudahAda = items.find((i) => i.item_id === item.id);
+    const sudahAda = items.find((i) => {
+      return i.item_id === item.id;
+    });
     if (!sudahAda) {
       setItems([
         ...items,
@@ -45,6 +47,34 @@ const CreateOrderPage = () => {
       );
     }
   };
+
+  const handleDecreaseItem = (item) => {
+    if (item.quantity > 1) {
+      setItems(
+        items.map((i) => {
+          if (i.item_id === item.item_id) {
+            return { ...i, quantity: i.quantity - 1 };
+          }
+          return i;
+        })
+      );
+    } else {
+      setItems(
+        items.filter((i) => {
+          return i.item_id !== item.item_id;
+        })
+      );
+    }
+  };
+
+  const handleRemoveItem = (item) => {
+    setItems(
+      items.filter((i) => {
+        return i.item_id !== item.item_id;
+      })
+    );
+  };
+
   console.log('items sekarang:', items);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,10 +104,6 @@ const CreateOrderPage = () => {
         <h1>Membuat Orderan</h1>
         <div>
           {availableItems.map((item) => {
-            {
-              /* console.log(item); */
-            }
-
             return (
               <div key={item.id}>
                 <h2>{item.name}</h2>
@@ -120,6 +146,20 @@ const CreateOrderPage = () => {
               <div key={item.item_id}>
                 <p>{barang?.name}</p>
                 <p>quantity: {item.quantity}</p>
+                <button
+                  onClick={() => {
+                    handleDecreaseItem(item);
+                  }}
+                >
+                  -
+                </button>
+                <button
+                  onClick={() => {
+                    handleRemoveItem(item);
+                  }}
+                >
+                  Hapus
+                </button>
               </div>
             );
           })}
