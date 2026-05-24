@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,7 +16,15 @@ const LoginPage = () => {
       localStorage.setItem('token', response.data.data);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      const data = error.response.data;
+      if (data.errors) {
+        // Error Validasi
+        setError(data.errors[0].msg);
+      } else {
+        setError(data.message);
+      }
+      console.log(error.response.data);
+      // console.log(error);
     }
     // console.log(email, password);
   };
@@ -54,6 +63,7 @@ const LoginPage = () => {
         >
           Login
         </button>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );
