@@ -17,18 +17,38 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Daftar Barang Camping</h1>
-      <div className="grid grid-cols-3 gap-4">
-        {items.map((item) => {
-          return (
-            <div key={item.id} className="bg-white p-4 rounded-lg shadow">
-              <h2 className="font-bold">{item.name}</h2>
-              <p className="text-gray-500">{item.description}</p>
-              <p className="text-blue-500">Rp {item.price_per_day}/hari</p>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          Sewa Perlengkapan Camping
+        </h1>
+        <p className="text-gray-500 mb-8">
+          Pilih perlengkapan camping terbaik untuk petualangan kamu!
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200"
+            >
+              <div className="bg-blue-500 h-40 flex items-center justify-center">
+                <span className="text-white text-5xl">Not Found</span>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
+                  {item.name}
+                </h2>
+                <p className="text-gray-500 text-sm mb-4">{item.description}</p>
+                <div className="flex justify-between items-center">
+                  <p className="text-blue-500 font-bold text-lg">
+                    Rp {Number(item.price_per_day).toLocaleString('id-ID')}/hari
+                  </p>
+                  <p className="text-gray-400 text-sm">Stok: {item.stock}</p>
+                </div>
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import CreateOrderPage from './pages/CreateOrderPage';
 
 const App = () => {
   const location = useLocation();
-  const hideNavbar = ['/login', 'register'].includes(location.pathname);
+  const hideNavbar = ['/login', '/register'].includes(location.pathname);
   return (
     <>
       {!hideNavbar && <Navbar />}

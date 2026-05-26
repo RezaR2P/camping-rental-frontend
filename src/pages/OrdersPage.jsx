@@ -23,28 +23,51 @@ const OrdersPage = () => {
   }, [token]);
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Daftar Orders</h1>
-      <div className="grid grid-cols-3 gap-4">
-        {orders.map((order) => {
-          return (
-            <div key={order.id} className="bg-white p-4 rounded-lg shadow">
-              <h2 className="font-bold">
-                Mulai Sewa:{' '}
-                {new Date(order.rent_start).toLocaleDateString('id-ID')}
-              </h2>
-              <p className="text-gray-500">
-                Selesai: {new Date(order.rent_end).toLocaleDateString('id-ID')}
-              </p>
-              <p className="text-blue-500">Total Harga: {order.total_price}</p>
-              <p className="text-blue-500">Status: {order.status}</p>
-              <p className="text-blue-500">
-                Order Dibuat:{' '}
-                {new Date(order.created_at).toLocaleString('id-ID')}
-              </p>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Pesanan Saya</h1>
+        <p className="text-gray-500 mb-8">Daftar semua pesanan sewa kamu</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {orders.map((order) => (
+            <div
+              key={order.id}
+              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-200"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="font-bold text-gray-800">Order #{order.id}</h2>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    order.status === 'pending'
+                      ? 'bg-yellow-100 text-yellow-600'
+                      : order.status === 'active'
+                        ? 'bg-green-100 text-green-600'
+                        : order.status === 'returned'
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-red-100 text-red-600'
+                  }`}
+                >
+                  {order.status}
+                </span>
+              </div>
+              <div className="space-y-2">
+                <p className="text-gray-600">
+                  📅 Mulai:{' '}
+                  {new Date(order.rent_start).toLocaleDateString('id-ID')}
+                </p>
+                <p className="text-gray-600">
+                  📅 Selesai:{' '}
+                  {new Date(order.rent_end).toLocaleDateString('id-ID')}
+                </p>
+                <p className="text-blue-500 font-bold">
+                  💰 Rp {Number(order.total_price).toLocaleString('id-ID')}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  🕐 {new Date(order.created_at).toLocaleString('id-ID')}
+                </p>
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );

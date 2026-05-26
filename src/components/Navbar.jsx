@@ -12,39 +12,51 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-500 p-4 flex justify-between items-center">
-      <Link to="/" className="text-white font-bold text-xl">
-        Camping Rental
+    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
+      <Link to="/" className="text-blue-500 font-bold text-2xl">
+        ⛺ Camping Rental
       </Link>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         {token ? (
           <>
-            <Link to="/" className="text-white hover:text-blue-200">
+            <Link
+              to="/"
+              className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+            >
               Home
             </Link>
-            <Link to="/orders" className="text-white hover:text-blue-200">
-              Orders
+            <Link
+              to="/orders"
+              className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+            >
+              Pesanan
             </Link>
             <Link
               to="/orders/create"
-              className="text-white hover:text-blue-200"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-medium transition duration-200"
             >
-              Create Order
+              + Sewa Sekarang
             </Link>
             <button
               onClick={handleLogout}
-              className="text-white hover:text-blue-200"
+              className="text-gray-600 hover:text-red-500 font-medium transition duration-200"
             >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="text-white hover:text-blue-200">
+            <Link
+              to="/login"
+              className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+            >
               Login
             </Link>
-            <Link to="/register" className="text-white hover:text-blue-200">
-              Register
+            <Link
+              to="/register"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-medium transition duration-200"
+            >
+              Daftar
             </Link>
           </>
         )}

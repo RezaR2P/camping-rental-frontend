@@ -33,11 +33,14 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex item-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Daftar Akun
+        </h1>
+        <p className="text-center text-gray-500 mb-6">Buat akun baru kamu</p>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Name</label>
+          <label className="block text-gray-700 font-medium mb-2">Nama</label>
           <input
             type="text"
             value={name}
@@ -45,12 +48,12 @@ const RegisterPage = () => {
               setName(e.target.value);
               setErrors([]);
             }}
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Masukkan Nama"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Masukkan nama lengkap"
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Email</label>
+          <label className="block text-gray-700 font-medium mb-2">Email</label>
           <input
             type="email"
             value={email}
@@ -58,12 +61,14 @@ const RegisterPage = () => {
               setEmail(e.target.value);
               setErrors([]);
             }}
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Masukkan Email"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="contoh@email.com"
           />
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 mb-2">Password</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">
+            Password
+          </label>
           <input
             type="password"
             value={password}
@@ -71,12 +76,12 @@ const RegisterPage = () => {
               setPassword(e.target.value);
               setErrors([]);
             }}
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Masukkan Password"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Minimal 8 karakter"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2">No HP</label>
+        <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">No HP</label>
           <input
             type="tel"
             value={phone}
@@ -84,24 +89,34 @@ const RegisterPage = () => {
               setPhone(e.target.value);
               setErrors([]);
             }}
-            className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Masukkan Nomor HP"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="08xxxxxxxxxx"
           />
         </div>
-        <button
-          onClick={handleSubmit}
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-        >
-          Register
-        </button>
-        {errors &&
-          errors.map((error) => {
-            return (
-              <p key={error.path} className="text-red-500">
+        {errors.length > 0 && (
+          <div className="mb-4 bg-red-50 p-3 rounded-lg">
+            {errors.map((error) => (
+              <p key={error.path} className="text-red-500 text-sm">
                 {error.msg}
               </p>
-            );
-          })}
+            ))}
+          </div>
+        )}
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition duration-200"
+        >
+          Daftar
+        </button>
+        <p className="text-center text-gray-500 mt-4">
+          Sudah punya akun?{' '}
+          <a
+            href="/login"
+            className="text-blue-500 hover:underline font-medium"
+          >
+            Login sekarang
+          </a>
+        </p>
       </div>
     </div>
   );
