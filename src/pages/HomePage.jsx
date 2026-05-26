@@ -31,9 +31,17 @@ const HomePage = () => {
               key={item.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200"
             >
-              <div className="bg-blue-500 h-40 flex items-center justify-center">
-                <span className="text-white text-5xl">Not Found</span>
-              </div>
+              {item.image_url ? (
+                <img
+                  src={item.image_url}
+                  alt={item.name}
+                  className="w-full h-40 object-cover"
+                />
+              ) : (
+                <div className="bg-blue-50 h-40 flex items-center justify-center">
+                  <span className="text-4xl">Not Found</span>
+                </div>
+              )}
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {item.name}
