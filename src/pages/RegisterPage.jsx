@@ -29,7 +29,6 @@ const RegisterPage = () => {
       } else {
         setErrors(data.message);
       }
-      console.log(data);
     }
   };
 

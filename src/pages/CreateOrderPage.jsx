@@ -8,6 +8,7 @@ const CreateOrderPage = () => {
   const [items, setItems] = useState([]);
   const token = localStorage.getItem('token');
   const [availableItems, setAvailableItems] = useState([]);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -94,7 +95,12 @@ const CreateOrderPage = () => {
       );
       navigate('/orders');
     } catch (error) {
-      console.log(error);
+      const data = error.response.data;
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setErrors([{ path: 'server', msg: data.message }]);
+      }
     }
   };
   console.log(availableItems);
@@ -112,6 +118,7 @@ const CreateOrderPage = () => {
                 <button
                   onClick={() => {
                     handleAddItem(item);
+                    setErrors([]);
                   }}
                 >
                   Tambah
@@ -125,6 +132,7 @@ const CreateOrderPage = () => {
             value={rentStart}
             onChange={(e) => {
               setRentStart(e.target.value);
+              setErrors([]);
             }}
           />
         </div>
@@ -135,6 +143,7 @@ const CreateOrderPage = () => {
             value={rentEnd}
             onChange={(e) => {
               setRentEnd(e.target.value);
+              setErrors([]);
             }}
           />
         </div>
@@ -149,6 +158,7 @@ const CreateOrderPage = () => {
                 <button
                   onClick={() => {
                     handleDecreaseItem(item);
+                    setErrors([]);
                   }}
                 >
                   -
@@ -156,6 +166,7 @@ const CreateOrderPage = () => {
                 <button
                   onClick={() => {
                     handleRemoveItem(item);
+                    setErrors([]);
                   }}
                 >
                   Hapus
@@ -165,6 +176,14 @@ const CreateOrderPage = () => {
           })}
         </div>
         <button onClick={handleSubmit}>Sewa</button>
+        {errors &&
+          errors.map((error) => {
+            return (
+              <p key={error.path} className="text-red-500">
+                {error.msg}
+              </p>
+            );
+          })}
       </div>
     </div>
   );
